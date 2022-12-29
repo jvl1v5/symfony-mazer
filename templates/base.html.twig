@@ -1,20 +1,27 @@
+{# following logic handles the different Mazer base-layouts  #}
+{% if base_layout|default is empty or base_layout|default == 'main' %}
+    {% set base_layout = 'app' %}
+    {% set encore_entry_link_tag = 'app-dark' %}
+{% else %}
+    {% set encore_entry_link_tag = base_layout %}
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %} | Symfony Mazer Skeleton</title>
+    <title>{% block title %}{% endblock %} | Symfony Mazer Boilerplate</title>
 
     {% block stylesfirst %}{% endblock %}
     {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags(encore_entry_link_tag) }}
     {% block styles %}{% endblock %}
 
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/favicon.png') }}" type="image/x-icon">
 </head>
-
 <body>
-<div id="app">
+<div id="{{ base_layout }}">
+    {% if base_layout == 'app' %}
     <div id="sidebar" class="active">
         {% include "_sidebar.html.twig" %}
     </div>
@@ -24,22 +31,25 @@
                 <i class="bi bi-justify fs-3"></i>
             </a>
         </header>
+        {% endif %}
         {% block content %}{% endblock %}
+        {% if base_layout == 'app' %}
         <footer>
             <div class="footer clearfix mb-0 text-muted">
                 <div class="float-start">
                     <p>2021 &copy; Mazer</p>
+                    <p>2022 &copy; Symfony-Mazer</p>
                 </div>
                 <div class="float-end">
-                    <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="https://saugi.me">Saugi</a></p>
+                    <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="https://saugi.me">Saugi</a></p>
+                    <p>Coded with <span class="text-warning"><i class="bi bi-balloon"></i></span> by <a href="https://github.com/jvl1v5">jvl1v5</a></p>
                 </div>
             </div>
         </footer>
     </div>
+    {% endif %}
 </div>
 {{ encore_entry_script_tags('app') }}
 {% block js %}{% endblock %}
 </body>
-
 </html>

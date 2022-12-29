@@ -59,6 +59,7 @@ symfony serve
 ```
 -  Open `http://localhost:8000`
 
+
 ## Documentation
 The Symfony project was build with Symfony CLI
 ```
@@ -84,3 +85,17 @@ There is a `RootController` class with some controller methods and route attribu
 The navigation menu can be found in `./src/templates/_sidebar.html.twig`
 
 
+### Separate CSS/SCSS files for layouts/pages
+For some pages or base-layouts like error or login/auth pages Mazer defines different CSS files.
+To get this working there is some logic in `./templates/base.html.twig`.
+You have to define a `base-layout` variable in the twig templates above the `extend` command.
+
+If you need further Mazer CSS/SCSS files (from the layouts/pages folders) which have to be referenced separately,
+add them as entrypoints (`.addEntry`) to the `./webpack.config.js` file and use them in the `./templates/base.html.twig` file
+with `encore_entry_link_tags`.
+
+Please note that you only have to add CSS/SCSS files this way which can't be used with the other / default files.  
+E.g. if you use `./assets/mazer/scss/app.scss` and `./assets/mazer/scss/themes/dark/app-dark.scss` you can't use
+`./assets/mazer/scss/pages/auth.scss` as well (some combinations break some stylings). You have to ensure that only `app.scss`and
+`auth.scss`are loaded and not `app-dark.scss`. Take a look at `./templates/base.html.twig` and `./templates/bundles/TwigBundle/Exception/error404.html.twig`
+to see how it works (with `error.scss` in this case) and extend the logic as needed. 
