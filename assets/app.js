@@ -3,6 +3,11 @@
  *
  * We recommend including the built version of this JavaScript file
  * (and its CSS file) in your base layout (base.html.twig).
+ *
+ * Only add imports of other files here, Javascript code defined here
+ * will not be executed.
+ * User symfony-mazer.js for your own JS code or import own files
+ *
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
@@ -11,13 +16,11 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
-// ---- MAZER ---- //
-
-// Bootstrap's JS'
-const bootstrap = require('bootstrap');
-
-// Make bootstrap's js available via the window object
-// (Used in the tooltip example)
-window.bootstrap = bootstrap;
-
+// Mazer
 import './mazer/js/app';
+
+// Bootstrap
+import './mazer/js/bootstrap'
+
+// Symfony-Mazer
+import './symfony-mazer';
